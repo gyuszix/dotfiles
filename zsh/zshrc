@@ -11,7 +11,22 @@ export NVM_DIR="$HOME/.nvm"
 #fix the ssh issue
 ssh() { TERM=xterm-256color command ssh "$@" }
 
-# Load my dotfiles aliases
-if [ -f ~/.dotfiles/zsh/aliases.zsh ]; then
-  source ~/.dotfiles/zsh/aliases.zsh
+export PATH="$PATH:$HOME/.dotnet/tools"
+source ~/.zsh_aliases
+
+#Docker CLI completions
+fpath=(/Users/gyuszix/.docker/completions $fpath)
+autoload -Uz compinit
+(( ${+_comps[docker]} )) || compinit
+
+# pipx
+export PATH="$PATH:/Users/gyuszix/.local/bin"
+
+# Secrets (gitignored, never committed)
+[ -f ~/.dotfiles/zsh/secrets.zsh ] && source ~/.dotfiles/zsh/secrets.zsh
+
+# Restore last working directory
+if [ -f ~/.last_dir ]; then
+  cd "$(cat ~/.last_dir)" 2>/dev/null
 fi
+chpwd() { pwd > ~/.last_dir }
