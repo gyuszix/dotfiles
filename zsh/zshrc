@@ -1,0 +1,17 @@
+# Show welcome banner (interactive shells only)
+if [[ -o interactive ]]; then
+  cat ~/.config/ghostty/welcome.txt
+fi
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh"
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+#eval "$(starship init zsh)"
+
+#fix the ssh issue
+ssh() { TERM=xterm-256color command ssh "$@" }
+
+# Load my dotfiles aliases
+if [ -f ~/.dotfiles/zsh/aliases.zsh ]; then
+  source ~/.dotfiles/zsh/aliases.zsh
+fi
